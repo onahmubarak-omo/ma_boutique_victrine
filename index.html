@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Elite - Solutions Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bleu-fonce: #1a2332;
+            --dore: #d4af37;
+            --blanc: #ffffff;
+            --gris-clair: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--bleu-fonce);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--bleu-fonce);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dore);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--blanc);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--dore);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--blanc);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            background: linear-gradient(135deg, var(--bleu-fonce) 0%, #2a3f5f 100%);
+            color: var(--blanc);
+            padding: 100px 5% 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".1" fill="%23d4af37"/></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--dore);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--dore);
+            color: var(--bleu-fonce);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Section commune */
+        section {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--bleu-fonce);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--dore);
+            margin: 15px auto 0;
+        }
+
+        /* Produits */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: var(--blanc);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--dore) 0%, #f0d78c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--blanc);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            color: var(--bleu-fonce);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .product-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            color: var(--dore);
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .buy-button {
+            width: 100%;
+            background: var(--bleu-fonce);
+            color: var(--blanc);
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .buy-button:hover {
+            background: #2a3f5f;
+        }
+
+        /* Badges */
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: var(--gris-clair);
+            border-radius: 15px;
+        }
+
+        .badge {
+            text-align: center;
+        }
+
+        .badge-icon {
+            font-size: 3rem;
+            color: var(--dore);
+            margin-bottom: 0.5rem;
+        }
+
+        .badge h4 {
+            color: var(--bleu-fonce);
+            font-size: 1rem;
+        }
+
+        /* Témoignages */
+        .testimonials {
+            background: var(--gris-clair);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--blanc);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--dore) 0%, #f0d78c 100%);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--blanc);
+            font-weight: bold;
+        }
+
+        .stars {
+            color: var(--dore);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-name {
+            font-weight: bold;
+            color: var(--bleu-fonce);
+        }
+
+        /* Contact */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-form {
+            background: var(--blanc);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--bleu-fonce);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--dore);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            width: 100%;
+            background: var(--dore);
+            color: var(--bleu-fonce);
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            background: var(--blanc);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--dore);
+        }
+
+        .contact-details h3 {
+            color: var(--bleu-fonce);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details p {
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bleu-fonce);
+            color: var(--blanc);
+            text-align: center;
+            padding: 2rem 5%;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bleu-fonce);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .badges {
+                gap: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">✨ ELITE</a>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#produits">Produits</a></li>
+                <li><a href="#temoignages">Témoignages</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="hero-content fade-in">
+            <h1>Gagnez du Temps, Vivez Mieux</h1>
+            <p>Des solutions premium qui transforment votre quotidien en expérience exceptionnelle</p>
+            <a href="#produits" class="cta-button">Découvrir nos solutions</a>
+        </div>
+    </section>
+
+    <!-- Badges de confiance -->
+    <div class="badges">
+        <div class="badge">
+            <div class="badge-icon">🔒</div>
+            <h4>Paiement 100% Sécurisé</h4>
+        </div>
+        <div class="badge">
+            <div class="badge-icon">⚡</div>
+            <h4>Livraison Express</h4>
+        </div>
+        <div class="badge">
+            <div class="badge-icon">✓</div>
+            <h4>Garantie Satisfait ou Remboursé</h4>
+        </div>
+    </div>
+
+    <!-- Produits -->
+    <section id="produits">
+        <h2 class="section-title">Nos Solutions Premium</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">💎</div>
+                <div class="product-info">
+                    <h3>Solution Essentielle</h3>
+                    <p>Gagnez 5h par semaine avec notre solution clé en main. Simplifiez-vous la vie dès aujourd'hui.</p>
+                    <div class="product-price">29 000 FCFA</div>
+                    <button class="buy-button" onclick="acheter('Solution Essentielle')">Acheter maintenant</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">👑</div>
+                <div class="product-info">
+                    <h3>Solution Premium</h3>
+                    <p>L'excellence à portée de main. Transformez votre quotidien avec notre offre complète et personnalisée.</p>
+                    <div class="product-price">49 000 FCFA</div>
+                    <button class="buy-button" onclick="acheter('Solution Premium')">Acheter maintenant</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">⭐</div>
+                <div class="product-info">
+                    <h3>Solution Élite</h3>
+                    <p>Le summum de l'efficacité. Accédez à tous nos services premium avec un accompagnement VIP.</p>
+                    <div class="product-price">79 000 FCFA</div>
+                    <button class="buy-button" onclick="acheter('Solution Élite')">Acheter maintenant</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Témoignages -->
+    <section class="testimonials" id="temoignages">
+        <h2 class="section-title">Ils Nous Font Confiance</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">AM</div>
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Un service exceptionnel ! J'ai gagné un temps précieux et la qualité est au rendez-vous. Je recommande à 100%."</p>
+                <p class="testimonial-name">Aminata M.</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">KD</div>
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Enfin une solution qui tient ses promesses ! Simple, efficace et le support client est très réactif. Bravo !"</p>
+                <p class="testimonial-name">Kofi D.</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">SF</div>
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Investissement rentabilisé dès la première semaine. La qualité premium se ressent dans chaque détail. Merci !"</p>
+                <p class="testimonial-name">Sarah F.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <h2 class="section-title">Contactez-Nous</h2>
+        <div class="contact-container">
+            <div class="contact-form">
+                <form onsubmit="envoyerMessage(event)">
+                    <div class="form-group">
+                        <label for="nom">Nom complet</label>
+                        <input type="text" id="nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Envoyer le message</button>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <a href="https://wa.me/22997000000" target="_blank" class="contact-card">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-details">
+                        <h3>WhatsApp</h3>
+                        <p>Discutez avec nous instantanément</p>
+                    </div>
+                </a>
+
+                <a href="https://instagram.com/votrecompte" target="_blank" class="contact-card">
+                    <div class="contact-icon">📸</div>
+                    <div class="contact-details">
+                        <h3>Instagram</h3>
+                        <p>Suivez nos actualités</p>
+                    </div>
+                </a>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-details">
+                        <h3>Email</h3>
+                        <p>contact@elite-shop.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Elite Shop. Tous droits réservés. | Paiement sécurisé par PayPal, Stripe & Mobile Money</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function acheter(produit) {
+            alert(`Redirection vers le paiement pour : ${produit}\n\nOptions disponibles :\n• PayPal\n• Stripe\n• Mobile Money (MTN, Moov, Orange)`);
+            // Intégrez ici votre système de paiement réel
+        }
+
+        function envoyerMessage(event) {
+            event.preventDefault();
+            const nom = document.getElementById('nom').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            alert(`Message envoyé avec succès !\n\nNous vous répondrons sous 24h à : ${email}`);
+            event.target.reset();
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Animation au scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        });
+
+        document.querySelectorAll('.product-card, .testimonial-card').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
